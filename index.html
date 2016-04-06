@@ -290,6 +290,14 @@
                         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
+                    <div id="carouselButtons" class="btn-group">
+                        <button id="carousel-pause" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                        </button>
+                        <button id="carousel-play" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -417,6 +425,14 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
+            // carousel buttons
+            $("#mycarousel").carousel({interval:2000});
+            $("#carousel-pause").click(function(){
+                $("#mycarousel").carousel('pause');
+            });
+            $("#carousel-play").click(function(){
+                $("#mycarousel").carousel('cycle');
+            });
         });
     </script>
 </body>
