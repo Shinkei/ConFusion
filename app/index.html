@@ -8,6 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head, any other head content must come *after* these tags-->
     <title>Ristorante Con Fusion</title>
     <!-- Bootstrap -->
+    <!-- build:css styles/main.css -->
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
@@ -19,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="styles/mystyles.css">
     <link rel="stylesheet" type="text/css" href="../bower_components/font-awesome/css/font-awesome.min.css">
     <link href="styles/bootstrap-social.css" rel="stylesheet">
+    <!-- endbuild -->
 </head>
 
 <body>
@@ -418,27 +420,29 @@
             </div>
         </div>
     </footer>
+    <!-- build:js scripts/main.js -->
     <!-- JQuery necessary for Bootstrap's Javascripts plugins -->
     <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Include all compiled plugins below of individual files as needed -->
     <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- endbuild -->
     <script type="text/javascript">
         $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-            // carousel buttons
-            $("#mycarousel").carousel({interval:2000});
-            $("#carousel-pause").click(function(){
-                $("#mycarousel").carousel('pause');
-            });
-            $("#carousel-play").click(function(){
-                $("#mycarousel").carousel('cycle');
-            });
-            $("#login").click(function(){
-                $("#loginModal").modal("show");
-            });
-            $("#reserve").click(function(){
-                $("#reservationModal").modal("show");
-            });
+                    $('[data-toggle="tooltip"]').tooltip();
+                    // carousel buttons
+                    $("#mycarousel").carousel({interval:2000});
+                    $("#carousel-pause").click(function(){
+                        $("#mycarousel").carousel('pause');
+                    });
+                    $("#carousel-play").click(function(){
+                        $("#mycarousel").carousel('cycle');
+                    });
+                    $("#login").click(function(){
+                        $("#loginModal").modal("show");
+                    });
+                    $("#reserve").click(function(){
+                        $("#reservationModal").modal("show");
+                    });
         });
     </script>
 </body>
