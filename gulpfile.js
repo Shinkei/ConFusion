@@ -14,7 +14,8 @@ var gulp = require('gulp'),
     changed = require('gulp-changed'),
     rev = require('gulp-rev'),
     browserSync = require('browser-sync'),
-    del = require('del');
+    del = require('del'),
+    ngAnnotate = require('gulp-ng-annotate');
 
 // Tasks
 gulp.task('jshint', function(){
@@ -27,7 +28,7 @@ gulp.task('usemin', ['jshint'], function(){
     return gulp.src('./app/menu.html')
             .pipe(usemin({
                 css: [minifycss(), rev()],
-                js: [uglify(), rev()]
+                js: [ngAnnotate(), uglify(), rev()]
             }))
             .pipe(gulp.dest('dist/'));
 });
