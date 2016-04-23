@@ -58,7 +58,7 @@ app.controller('FeedbackController', ['$scope', function($scope){
     $scope.sendFeedback = function(){
 
         console.log($scope.feedback);
-        if($scope.feedback.agree && ($scope.feedback.mychannel == "" || $scope.feedback.mychannel == null) && !$scope.feedback.mychannel){
+        if($scope.feedback.agree && ($scope.feedback.mychannel === "" || $scope.feedback.mychannel === null) && !$scope.feedback.mychannel){
             $scope.invalidChannelSelection = true;
             console.log('incorrect');
         }else{
@@ -73,9 +73,8 @@ app.controller('FeedbackController', ['$scope', function($scope){
 }]);
 
 // Dishes angular code
-        var app2 = angular.module('confusionApp2',[]);
-        
-        app2.controller('dishDetailController', function() {
+ 
+        app.controller('DishDetailController', ['$scope', function($scope) {
 
             var dish={
                           name:'Uthapizza',
@@ -118,25 +117,21 @@ app.controller('FeedbackController', ['$scope', function($scope){
                                
                            ]
                     };
-            
-            this.dish = dish;
-            this.filt = "";
-        });
-// Code for the carousel and buttons
-$(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-            // carousel buttons
-            $("#mycarousel").carousel({interval:2000});
-            $("#carousel-pause").click(function(){
-                $("#mycarousel").carousel('pause');
-            });
-            $("#carousel-play").click(function(){
-                $("#mycarousel").carousel('cycle');
-            });
-            $("#login").click(function(){
-                $("#loginModal").modal("show");
-            });
-            $("#reserve").click(function(){
-                $("#reservationModal").modal("show");
-            });
-});
+            $scope.dish = dish;
+            $scope.filt = "";
+
+        }]);
+
+app.controller('DishCommentController', ['$scope', function($scope){
+
+    $scope.comment = {rating:5, comment:"", author:"", date:""};
+
+    $scope.submitComment = function(){
+
+        console.log($scope.comment);
+        $scope.comment.date = new Date().toISOString();
+        $scope.dish.comments.push($scope.comment);
+        $scope.comment = {rating:5, comment:"", author:"", date:""};
+        $scope.commentForm.$setPristine();
+    };
+}]);
