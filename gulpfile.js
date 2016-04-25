@@ -25,7 +25,7 @@ gulp.task('jshint', function(){
 });
 
 gulp.task('usemin', ['jshint'], function(){
-    return gulp.src('./app/menu.html')
+    return gulp.src('./app/index2.html')
             .pipe(usemin({
                 css: [minifycss(), rev()],
                 js: [ngAnnotate(), uglify(), rev()]

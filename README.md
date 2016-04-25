@@ -54,3 +54,13 @@ Error: watch app/styles ENOSPC
 `
 ###solution
 `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
+
+
+###error
+  `Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https, chrome-extension`
+
+###solution
+`python -m http.server`
+
+###error
+>There is an error with the bootstrap scrollspy nav and angular, it does not work, looks like we have to refresh the element by javascript
