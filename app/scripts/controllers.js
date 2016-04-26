@@ -74,9 +74,9 @@ app.controller('FeedbackController', ['$scope', function($scope){
 
 // Dishes angular code
 
-app.controller('DishDetailController', ['$scope', 'menuFactory', function($scope, menuFactory) {
+app.controller('DishDetailController', ['$scope', '$routeParams', 'menuFactory', function($scope, $routeParams, menuFactory) {
 
-    var dish = menuFactory.getDish(0);
+    var dish = menuFactory.getDish(parseInt($routeParams.id, 10));
     $scope.dish = dish;
     $scope.filt = "";
 
