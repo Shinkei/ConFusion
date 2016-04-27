@@ -64,3 +64,6 @@ Error: watch app/styles ENOSPC
 
 ###error
 >There is an error with the bootstrap scrollspy nav and angular, it does not work, looks like we have to refresh the element by javascript
+
+##Todo list
+> looks like bootstrap is not working with the angular ui router, so check http://angular-ui.github.io/bootstrap/ to redo the elements

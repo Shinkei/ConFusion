@@ -72,16 +72,16 @@ app.controller('FeedbackController', ['$scope', function($scope){
 
 }]);
 
-// Dishes angular code
+// Dishes Details
+app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
 
-app.controller('DishDetailController', ['$scope', '$routeParams', 'menuFactory', function($scope, $routeParams, menuFactory) {
-
-    var dish = menuFactory.getDish(parseInt($routeParams.id, 10));
+    var dish = menuFactory.getDish(parseInt($stateParams.id, 10));
     $scope.dish = dish;
     $scope.filt = "";
 
 }]);
 
+// DishComments
 app.controller('DishCommentController', ['$scope', function($scope){
 
     $scope.comment = {rating:5, comment:"", author:"", date:""};
@@ -94,4 +94,20 @@ app.controller('DishCommentController', ['$scope', function($scope){
         $scope.comment = {rating:5, comment:"", author:"", date:""};
         $scope.commentForm.$setPristine();
     };
+}]);
+
+// Index Controller
+app.controller('IndexController', ['$scope', 'menuFactory', 'corporateService', function($scope, menuFactory, corporateService){
+
+    $scope.dishes = menuFactory.getDishes();
+    $scope.dish = menuFactory.getRandomDish();
+    $scope.promotion = menuFactory.getPromotion(0);
+    $scope.ceo = corporateService.getLeader(0);
+
+}]);
+
+app.controller('AboutController', ['$scope', 'corporateService',function($scope, corporateService){
+
+    $scope.leaders = corporateService.getLeaders();
+
 }]);
