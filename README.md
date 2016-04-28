@@ -67,3 +67,60 @@ Error: watch app/styles ENOSPC
 
 ##Todo list
 > looks like bootstrap is not working with the angular ui router, so check http://angular-ui.github.io/bootstrap/ to redo the elements
+
+
+"
+Apparently the uesemin plugin is buggy, thats why we need another plugin.
+
+1. Install plugin (https://github.com/mariusGundersen/gulp-forEach):
+
+npm install --save-dev gulp-foreach
+
+2. update gulpfile:
+
+usemin = require('gulp-usemin'),foreach = require('gulp-foreach'),imagemin = require('gulp-imagemin'),
+
+gulp.task('usemin', ['jshint'], function () {    return gulp.src('./app/*.html')        .pipe(foreach(function (stream, file) {            return stream.pipe(usemin({                    css: [minifycss(), rev()],                    js: [ngannotate(), uglify(), rev()]                }))                .pipe(gulp.dest('dist/'));        }))});
+
+If someone has a more elegant solution, please feel free to share it..
+ · 
+
+UM
+ · 16 hours ago · Edited
+
+I had the same issue.
+
+With the code supplied in the instructions I received the following error for some tasks when executing default gulp task;
+
+[20:34:53] gulp-notify: [Error in notifier] Error in plugin 'gulp-notify'
+Message:
+    Command failed: C:\conFusion\node_modules\node-notifier\vendor\toaster\toast.exe -p C:\conFusion\node_modules\gulp-notify\assets\gulp.png -m Images task complete -t Gulp notification -q true
+
+Unhandled Exception: System.Exception: The notification platform found application is already registered. (Exception from HRESULT: 0x803E0118)
+   at Windows.UI.Notifications.ToastNotifier.Show(ToastNotification notification)
+   at toast.Program.ShowToast(String title, String message, String imageURI, Boolean sound)
+   at toast.Program.Main(String[] args)
+
+Details:
+    killed: false
+    code: 3762504530
+    signal: null
+    cmd: C:\conFusion\node_modules\node-notifier\vendor\toaster\toast.exe -p C:\fullstack\fullstack-c3\module1\conFusion\node_modules\gulp-notify\assets\gulp.png -m Images task complete -t Gulp notification -q true
+
+I solved it by adding return to the gulp.src call to make sure it completes before the next call.
+
+Edit: I put return on the first call by mistake, make sure to have return on the second call or else the function will exit and not add the latter fonts.
+
+So add return to the last call in the copyfonts task;
+
+gulp.task('copyfonts', ['clean'], function() {
+   gulp.src('./bower_components/font-awesome/fonts/**/*.{ttf,woff,eof,svg}*')
+   .pipe(gulp.dest('./dist/fonts'));
+   return gulp.src('./bower_components/bootstrap/dist/fonts/**/*.{ttf,woff,eof,svg}*')
+   .pipe(gulp.dest('./dist/fonts'));
+});
+
+ · 
+
+
+"

@@ -25,7 +25,7 @@ gulp.task('jshint', function(){
 });
 
 gulp.task('usemin', ['jshint'], function(){
-    return gulp.src('./app/index2.html')
+    return gulp.src('./app/**/*.html')
             .pipe(usemin({
                 css: [minifycss(), rev()],
                 js: [ngAnnotate(), uglify(), rev()]
@@ -76,7 +76,7 @@ gulp.task('browser-sync', ['default'], function(){
     browserSync.init(files, {
         server: {
             baseDir: 'dist',
-            index: 'menu.html'
+            index: 'index.html'
         }
     });
 
