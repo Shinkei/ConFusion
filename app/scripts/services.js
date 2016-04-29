@@ -4,9 +4,15 @@ var app = angular.module('confusionApp');
 
 app.constant("baseURL", "http://localhost:3000/");
 
-app.factory('menuFactory', ['$http', 'baseURL', function($http, baseURL) {
+app.factory('menuFactory', ['$resource', '$http', 'baseURL', function($resource, $http, baseURL) {
     var menuFac = {};
     var promotions = [{_id:0, name:'Weekend Grand Buffet', image: 'images/buffet.png', label:'New', price:'19.99', description:'Featuring mouthwatering combinations with a choice of five different salads, six enticing appetizers, six main entrees and five choicest desserts. Free flowing bubbly and soft drinks. All for just $19.99 per person ', } ];
+
+    var resource = $resource(baseURL+"dishes/:id", null, {'update':{method:'PUT'}});
+
+    menuFac.getDishesResource = function(){
+        return resource;
+    }
 
     menuFac.getDishes = function(){
         return $http.get(baseURL+"dishes");

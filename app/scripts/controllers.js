@@ -9,18 +9,28 @@ app.controller('MenuController',['$scope', 'menuFactory', function($scope, menuF
     $scope.showMenu = false;
     $scope.message = "Loading...";
 
+    // $scope.dishes = {};
+    // menuFactory.getDishes()
+    //     .then(
+    //         function(response){
+    //             $scope.dishes = response.data;
+    //             $scope.showMenu = true;
+    //         },
+    //         function(response){
+    //             $scope.message = "ERROR:"+response.status+" "+response.statusText;
+    //         }
+    //     );
+    // replace with the resource call
     $scope.dishes = {};
-    menuFactory.getDishes()
-        .then(
-            function(response){
-                $scope.dishes = response.data;
-                $scope.showMenu = true;
-            },
-            function(response){
-                $scope.message = "ERROR:"+response.status+" "+response.statusText;
-            }
-        );
-
+    menuFactory.getDishesResource().query(
+        function(response){
+            $scope.dishes = response;
+            $scope.showMenu = true;
+        },
+        function(response){
+            $scope.message = "ERROR:"+response.status+" "+response.statusText;
+        }
+    );
 
     $scope.select = function(setTab){
         $scope.tab = setTab;
@@ -89,11 +99,23 @@ app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory',
 
     $scope.showDish = false;
     $scope.message = "Loading...";
+    // $scope.dish = {};
+    // menuFactory.getDish(parseInt($stateParams.id, 10))
+    //     .then(
+    //         function(response){
+    //             $scope.dish = response.data;
+    //             $scope.showDish = true;
+    //         },
+    //         function(response){
+    //             $scope.message = "ERROR: "+response.status+" "+response.statusText;
+    //         }
+    //     );
+    // replace with the resource call
     $scope.dish = {};
-    menuFactory.getDish(parseInt($stateParams.id, 10))
-        .then(
+    menuFactory.getDishesResource().get({id:parseInt($stateParams.id,10)})
+        .$promise.then(
             function(response){
-                $scope.dish = response.data;
+                $scope.dish = response;
                 $scope.showDish = true;
             },
             function(response){
@@ -106,15 +128,15 @@ app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory',
 }]);
 
 // DishComments
-app.controller('DishCommentController', ['$scope', function($scope){
+app.controller('DishCommentController', ['$scope', 'menuFactory', function($scope, menuFactory){
 
     $scope.comment = {rating:5, comment:"", author:"", date:""};
 
     $scope.submitComment = function(){
 
-        console.log($scope.comment);
         $scope.comment.date = new Date().toISOString();
         $scope.dish.comments.push($scope.comment);
+        menuFactory.getDishesResource().update({id:$scope.dish.id}, $scope.dish);
         $scope.comment = {rating:5, comment:"", author:"", date:""};
         $scope.commentForm.$setPristine();
     };
