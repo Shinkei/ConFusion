@@ -9,18 +9,6 @@ app.controller('MenuController',['$scope', 'menuFactory', function($scope, menuF
     $scope.showMenu = false;
     $scope.message = "Loading...";
 
-    // $scope.dishes = {};
-    // menuFactory.getDishes()
-    //     .then(
-    //         function(response){
-    //             $scope.dishes = response.data;
-    //             $scope.showMenu = true;
-    //         },
-    //         function(response){
-    //             $scope.message = "ERROR:"+response.status+" "+response.statusText;
-    //         }
-    //     );
-    // replace with the resource call
     $scope.dishes = {};
     menuFactory.getDishesResource().query(
         function(response){
@@ -51,10 +39,6 @@ app.controller('MenuController',['$scope', 'menuFactory', function($scope, menuF
     };
 
     $scope.isSelected = function(value){
-        // if($scope.tab === value){
-        //     return true;
-        // }
-        // return false;
         return ($scope.tab === value);
     };
 
@@ -75,7 +59,7 @@ app.controller('ContactController',['$scope', function($scope){
 }]);
 
 // Feddback Controller
-app.controller('FeedbackController', ['$scope', function($scope){
+app.controller('FeedbackController', ['$scope', 'feedbackFactory', function($scope, feedbackFactory){
 
     $scope.sendFeedback = function(){
 
@@ -85,6 +69,7 @@ app.controller('FeedbackController', ['$scope', function($scope){
             console.log('incorrect');
         }else{
             $scope.invalidChannelSelection = false;
+            feedbackFactory.getFeedbackResource().save($scope.feedback);
             $scope.feedback = {mychannel:"", firstName:"", lastName:"", agree:false, email:""};
             $scope.feedback.mychannel = "";
             $scope.feedbackForm.$setPristine();
@@ -99,23 +84,11 @@ app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory',
 
     $scope.showDish = false;
     $scope.message = "Loading...";
-    // $scope.dish = {};
-    // menuFactory.getDish(parseInt($stateParams.id, 10))
-    //     .then(
-    //         function(response){
-    //             $scope.dish = response.data;
-    //             $scope.showDish = true;
-    //         },
-    //         function(response){
-    //             $scope.message = "ERROR: "+response.status+" "+response.statusText;
-    //         }
-    //     );
-    // replace with the resource call
     $scope.dish = {};
-    menuFactory.getDishesResource().get({id:parseInt($stateParams.id,10)})
-        .$promise.then(
+    menuFactory.getDish(parseInt($stateParams.id, 10))
+        .then(
             function(response){
-                $scope.dish = response;
+                $scope.dish = response.data;
                 $scope.showDish = true;
             },
             function(response){
@@ -173,13 +146,48 @@ app.controller('IndexController', ['$scope', 'menuFactory', 'corporateService', 
                 $scope.messageDish = "ERROR: "+response.status+" "+response.statusText;
             }
         );
-    $scope.promotion = menuFactory.getPromotion(0);
-    $scope.ceo = corporateService.getLeader(0);
+
+    $scope.promotion = {};
+    $scope.showPromotion = false;
+    $scope.messagePromotion = "Loading...";
+    menuFactory.getPromoResource().get({id:0})
+        .$promise.then(
+            function(response){
+                $scope.promotion = response;
+                $scope.showPromotion = true;
+            },
+            function(response){
+                $scope.messagePromotion = "ERROR: "+response.status+" "+response.statusText;
+            });
+
+    $scope.ceo = {};
+    $scope.showCEO = false;
+    $scope.messageCEO = "Loading...";
+    corporateService.getLeaderResource().get({id:0})
+        .$promise.then(
+            function(response){
+                $scope.ceo = response;
+                $scope.showCEO = true;
+            },
+            function(response){
+                $scope.messageCEO = "ERROR: "+response.status+" "+response.statusText;
+            }
+        );
 
 }]);
 
 app.controller('AboutController', ['$scope', 'corporateService',function($scope, corporateService){
-
-    $scope.leaders = corporateService.getLeaders();
+    $scope.showLeaders = false;
+    $scope.messageLeaders = 'Loading...';
+    $scope.leaders = {};
+    corporateService.getLeaderResource().query(
+        function(response){
+            $scope.leaders = response;
+            $scope.showLeaders = true;
+        },
+        function(response){
+            $scope.messageLeaders = "ERROR: "+response.status+" "+response.statusText;
+        }
+    );
 
 }]);
