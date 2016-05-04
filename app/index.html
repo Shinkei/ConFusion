@@ -41,29 +41,12 @@
 <!--     <script src="../bower_components/angular-route/angular-route.min.js"></script> -->
     <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers.js"></script>
     <script src="scripts/services.js"></script>
 <!-- endbuild -->
-    <script type="text/javascript">
-        $(document).ready(function(){
-                    $('[data-toggle="tooltip"]').tooltip();
-                    // carousel buttons
-                    $("#mycarousel").carousel({interval:2000});
-                    $("#carousel-pause").click(function(){
-                        $("#mycarousel").carousel('pause');
-                    });
-                    $("#carousel-play").click(function(){
-                        $("#mycarousel").carousel('cycle');
-                    });
-                    $("#login").click(function(){
-                        $("#loginModal").modal("show");
-                    });
-                    $("#reserve").click(function(){
-                        $("#reservationModal").modal("show");
-                    });
-        });
-    </script>
+
 </body>
 
 </html>

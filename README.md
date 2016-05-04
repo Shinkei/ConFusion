@@ -66,6 +66,6 @@ Error: watch app/styles ENOSPC
 >There is an error with the bootstrap scrollspy nav and angular, it does not work, looks like we have to refresh the element by javascript
 
 ##Todo list
-> looks like bootstrap is not working with the angular ui router, so check http://angular-ui.github.io/bootstrap/ to redo the elements
+> looks like bootstrap is not working with the angular ui router, so check http://angular-ui.github.io/bootstrap/ (there are two elements that I didn't implement, the modal, because I don't like the way ui.bootstrap implements it and the spynav because there is no support)
 
 
