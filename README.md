@@ -4,7 +4,7 @@ Bootstrap Web Page
 
 ## Trowbleshoting
 
-###error : 
+### error : 
 `shinkei (master *) ConFusion $ gulp watch
 [17:32:09] Using gulpfile ~/Programming/ConFusion/gulpfile.js
 [17:32:09] Starting 'clean'...
@@ -52,20 +52,20 @@ Error: watch app/styles ENOSPC
     at FSWatcher.<anonymous> (/home/shinkei/Programming/ConFusion/node_modules/chokidar/lib/nodefs-handler.js:460:16)
     at FSReqWrap.oncomplete (fs.js:82:15)
 `
-###solution
+### solution
 `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
 
 
-###error
+### error
   `Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https, chrome-extension`
 
-###solution
+### solution
 `python -m http.server`
 
-###error
+### error
 >There is an error with the bootstrap scrollspy nav and angular, it does not work, looks like we have to refresh the element by javascript
 
-##Todo list
+## Todo list
 > looks like bootstrap is not working with the angular ui router, so check http://angular-ui.github.io/bootstrap/ (there are two elements that I didn't implement, the modal, because I don't like the way ui.bootstrap implements it and the spynav because there is no support)
 
 
